@@ -6,6 +6,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from mlxtend.plotting import plot_decision_regions
+import scikitplot as skplt
 
 def knn_comparison(data, k):
     y = data["Hackathon"]
@@ -32,14 +33,4 @@ accuracy = knn_comparison(data, k)
 
 st.write(accuracy)
 
-# Plot decision regions
-y = data["Hackathon"]
-X = data[["Age", "Exp"]]
-clf = KNeighborsClassifier(n_neighbors=k)
-pipe = make_pipeline(StandardScaler(), clf)
-pipe.fit(X, y)
-ax = plot_decision_regions(X.values, y.values, clf=pipe)
-ax.set_xlabel('Age')
-ax.set_ylabel('Exp')
-ax.set_title(f'KNN with K={k} (Accuracy={accuracy:.2f})')
-st.pyplot(fig)
+skplt.metrics.plot_confusion_matrix(y_test, y_pred, normalize=False, title = 'Confusion Matrix for predictions')

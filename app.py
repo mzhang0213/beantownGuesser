@@ -16,9 +16,7 @@ st.set_option('deprecation.showPyplotGlobalUse', False)
 @st.cache(persist= True)
 def load():
     data= pd.read_csv("data.csv")
-    label= LabelEncoder()
-    for i in data.columns:
-        data[i] = label.fit_transform(data[i])
+    
     return data
 df = load()
 if st.sidebar.checkbox("Display data", False):

@@ -8,6 +8,8 @@ from sklearn.metrics import accuracy_score
 from mlxtend.plotting import plot_decision_regions
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+class_names = ["first hackathon", "not first hackathon"]
+
 def knn_comparison(data, k):
     y = data["Hackathon"]
     X = data[["Age", "Exp", "Langs", "Beans", "Glasses", "Git", "Lang", "Start"]]
@@ -34,7 +36,6 @@ k = st.sidebar.slider("Choose value of K", 1, 50)
 
 # Calculate accuracy
 accuracy = knn_comparison(data, k)
-class_names = ["first hackathon", "not first hackathon"]
 
 st.write(accuracy)
 

@@ -19,6 +19,10 @@ def knn_comparison(data, k):
     pipe.fit(X_train, y_train)
     y_pred = pipe.predict(X_test)
     accuracy = accuracy_score(y_test, y_pred)
+    cm = confusion_matrix(y_test, y_pred, labels=class_names)
+    disp = ConfusionMatrixDisplay(confusion_matrix=cm,display_labels=class_names)
+    disp.plot()
+    plt.show()
     return accuracy
     
 # Load data
@@ -33,9 +37,6 @@ accuracy = knn_comparison(data, k)
 class_names = ["first hackathon", "not first hackathon"]
 
 st.write(accuracy)
-cm = confusion_matrix(y_test, y_pred, labels=class_names)
-disp = ConfusionMatrixDisplay(confusion_matrix=cm,display_labels=class_names)
-disp.plot()
-plt.show()
+
 
 

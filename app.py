@@ -19,10 +19,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 class_names = ["first hackathon", "not first hackathon"]
 #st.title("Predicting Hackathon Experience")
-st.title("HAVE YOU EVER")
-st.write("been to a Hackathon before?\n\n\n")
-st.write("We asked fellow beantown bashers eight questions to try and predict whether or not they have been to a Hackathon before based on the information they gave us.\n")
-st.title("Here are the results!\n\n")
+st.title("Have you ever been to a Hackathon before?")
+st.write("\n\n\nWe asked fellow beantown bashers eight questions to try and predict whether or not they have been to a Hackathon before based on the information they gave us.\n")
+st.title("Here are the results!\n\n\n\n\n\n")
 st.set_option('deprecation.showPyplotGlobalUse', False)
 @st.cache(persist= True)
 def load():

@@ -38,7 +38,7 @@ X = data[["Age", "Exp"]]
 clf = KNeighborsClassifier(n_neighbors=k)
 pipe = make_pipeline(StandardScaler(), clf)
 pipe.fit(X, y)
-fig, ax = plot_decision_regions(X.values, y.values, clf=pipe)
+ax = plot_decision_regions(X.values, y.values, clf=pipe)
 ax.set_xlabel('Age')
 ax.set_ylabel('Exp')
 ax.set_title(f'KNN with K={k} (Accuracy={accuracy:.2f})')

@@ -31,7 +31,6 @@ k = st.sidebar.slider("Choose value of K", 1, 50)
 accuracy = knn_comparison(data, k)
 
 st.write(accuracy)
-plot_metrics(metrics)
 
 def plot_metrics(metrics_list):
     if "Confusion Matrix" in metrics_list:
@@ -48,4 +47,5 @@ def plot_metrics(metrics_list):
         st.pyplot()
 metrics = st.sidebar.multiselect("What metrics to plot?", ("Confusion Matrix", "ROC Curve", "Precision-Recall Curve"))
 class_names = ["first hackathon", "not first hackathon"]
+plot_metrics(metrics)
 

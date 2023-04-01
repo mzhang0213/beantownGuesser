@@ -20,29 +20,25 @@ from sklearn.ensemble import RandomForestClassifier
 st.title("Predicting Well Facies")
 
 # Load data
-data=pd.read_csv("data.csv")
+data=pd.read_csv("regdata.csv")
 X_cols = ['Experience','Languages','BEANS?','Glasses','Github','Language','Age']
 y_col = 'label'
 
-X=[]
-y=[]
-def paramChange():
-  for i in 
-  X = data[selected_cols]
-  y = data[y_col]
-for i in X_cols:
-  st.checkbox(i, value=False, key=None, help=None, on_change=paramChange, args=None, kwargs=None, *, disabled=False, label_visibility="visible")
 # User selection of input factors
-
-
+selected_cols = st.multiselect("Select factors to include", X_cols, default=X_cols)
+X = data[selected_cols]
+y = data[y_col]
 
 # Define KNN pipeline
 pipe = Pipeline([('scaler', StandardScaler()),
                  ('clf', LogisticRegression(multi_class='auto', solver='liblinear', 
                                             max_iter=1000, random_state=42))])
 
+
+
 # Define stratified sampling CV 
 cv = StratifiedKFold(5, shuffle=True)
+st.write("To avoid overfitting on the F-01 well, cross validator was used in the form of a stratified k-fold from SKLearn. ")
 # Cross-validation
 scores = cross_val_score(pipe, X, y, cv=cv, scoring='accuracy')
 #st.write("Cross-validation accuracy scores:", scores)
@@ -67,6 +63,48 @@ ax.set_xlabel('Facies')
 ax.set_ylabel('Depth (m)')
 ax.set_title('Well Facies Prediction')
 
+# Show plot
+st.pyplot(fig)
+model = load("model.pkl")
+data=pd.read_csv("graphdata.csv")
+st.write("Well-log data has a high resolution because of its highest frequency in the range of 20 to 40 kHz. This usually is good, as this frequency can capture small contacts between two different lithofacies as accurately as 10-20 centimeters. But this accuracy level is not needed for our data, which contains facies thickness that ranges from 20-100 meters. Filtering out the high frequency will help accuracy levels. Filtering the high frequency and retaining the low frequency can be done by implementing a Butterworth filter, which depend on a cutoff value. Play around with to slider to see how the data is filtered. (Lower values = More filtered")
+def butter_lowpass(cutoff, fs, order=5):
+    nyq = 0.5 * fs
+    normal_cutoff = cutoff / nyq
+    b, a = butter(order, normal_cutoff, btype='low', analog=False)
+    return b, a
+
+def butter_lowpass_filter(data, cutoff, fs, order=5):
+    b, a = butter_lowpass(cutoff, fs, order=order)
+    y = filtfilt(b, a, data)
+    return y
+
+def showgraph():
+    data['AILP'] = butter_lowpass_filter(data.AI.values, cutoff, 1000/4, order=5) 
+    data['AIRLP'] = butter_lowpass_filter(data.AIR.values, cutoff, 1000/4, order=5) 
+    data['RHOBLP'] = butter_lowpass_filter(data.RHOB.values, cutoff, 1000/4, order=5) 
+    data['GRLP'] = butter_lowpass_filter(data.GR.values, cutoff, 1000/4, order=5) 
+    data['PHIELP'] = butter_lowpass_filter(data.PHIE.values, cutoff, 1000/4, order=5) 
+
+    df = data[['DEPTH', 'RHOB', 'RHOBLP']]
+    df = pd.melt(df, id_vars='DEPTH', value_vars=['RHOB', 'RHOBLP'], var_name='Type', value_name='Value')
+
+    chart = alt.Chart(df).mark_line().encode(
+        x='DEPTH',
+        y='Value',
+        color='Type'
+    ).properties(
+        width=800,
+        height=300
+    ).interactive()
+
+    st.altair_chart(chart)
+
+
+cutoff = st.slider("cutoff", 1, 10, value=1)
+showgraph()
+sdata = data 
+st.write("While the standard regression model performed alright, we can do a lot better. By choosing a better model with our newly filtered data, we'll be able to achieve near perfect accuracy. To pick the best model I looked at the results from multiple models and picked the one with the highest accuracy. You can play around and see the accuracy levels for 5 AI prediction models. You will see that the KNN model performed the best, with an accuracy of 99%!")
 sdata['AILP'] = butter_lowpass_filter(sdata.AI.values, 4, 1000/4, order=5) 
 sdata['AIRLP'] = butter_lowpass_filter(sdata.AIR.values, 4, 1000/4, order=5) 
 sdata['RHOBLP'] = butter_lowpass_filter(sdata.RHOB.values, 4, 1000/4, order=5) 

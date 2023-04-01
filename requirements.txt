@@ -5,4 +5,4 @@ matplotlib==3.7.1
 joblib==1.2.0
 altair==4.2.2
 mlxtend==0.21.0
-scikitplot
+scikitplot==0.3.5

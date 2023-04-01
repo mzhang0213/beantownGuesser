@@ -14,7 +14,7 @@ st.set_option('deprecation.showPyplotGlobalUse', False)
 @st.cache(persist= True)
 def load():
     data= pd.read_csv("data.csv")
-    data = data.drop("Names", axis = 1)
+    data = data.drop("Name", axis = 1)
     label= LabelEncoder()
     for i in data.columns:
         data[i] = label.fit_transform(data[i])

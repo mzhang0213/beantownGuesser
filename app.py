@@ -16,7 +16,7 @@ st.set_option('deprecation.showPyplotGlobalUse', False)
 @st.cache(persist= True)
 def load():
     data= pd.read_csv("data.csv")
-    
+    data = data.drop("Name", axis = 1)
     return data
 df = load()
 if st.sidebar.checkbox("Display data", False):

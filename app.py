@@ -11,6 +11,18 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 class_names = ["first hackathon", "not first hackathon"]
 st.set_option('deprecation.showPyplotGlobalUse', False)
+@st.cache(persist= True)
+def load():
+    data= pd.read_csv("mushrooms.csv")
+    data = data.drop("Names", axis = 1)
+    label= LabelEncoder()
+    for i in data.columns:
+        data[i] = label.fit_transform(data[i])
+    return data
+df = load()
+if st.sidebar.checkbox("Display data", False):
+    st.subheader("Show dataset")
+    st.write(df)
 def knn_comparison(data, k):
     y = data["Hackathon"]
     X = data[["Age", "Exp", "Langs", "Beans", "Glasses", "Git", "Lang", "Start"]]

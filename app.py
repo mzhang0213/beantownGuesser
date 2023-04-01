@@ -44,6 +44,7 @@ def knn_comparison(data, k):
     return accuracy
     
 # Load data
+data= pd.read_csv("data.csv")
 
 # Create sidebar
 st.sidebar.title("KNN Comparison")

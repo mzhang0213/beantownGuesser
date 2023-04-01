@@ -33,4 +33,26 @@ accuracy = knn_comparison(data, k)
 
 st.write(accuracy)
 
-skplt.metrics.plot_confusion_matrix(y_test, y_pred, normalize=False, title = 'Confusion Matrix for predictions')
+# Plot decision regions
+y = data["Hackathon"]
+X = data[["Age", "Exp", "Langs", "Beans", "Glasses", "Git", "Lang", "Start"]]
+clf = KNeighborsClassifier(n_neighbors=k)
+pipe = make_pipeline(StandardScaler(), clf)
+pipe.fit(X, y)
+plot_decision_regions(X.values, y.values, clf=pipe)
+st.pyplot()
+
+def plot_metrics(metrics_list):
+    if "Confusion Matrix" in metrics_list:
+        st.subheader("Confusion Matrix")
+        plot_confusion_matrix(model, x_test, y_test, display_labels=   class_names)
+        st.pyplot()
+    if "ROC Curve" in metrics_list:
+        st.subheader("ROC Curve")
+        plot_roc_curve(model, x_test, y_test)
+        st.pyplot()
+    if "Precision-Recall Curve" in metrics_list:
+        st.subheader("Precision-Recall Curve")
+        plot_precision_recall_curve(model, x_test, y_test)
+        st.pyplot()
+metrics = st.sidebar.multiselect("What metrics to plot?", ("Confusion Matrix", "ROC Curve", "Precision-Recall Curve"))

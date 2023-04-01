@@ -90,6 +90,6 @@ accuracy = knn_comparison(data, k)
 st.write(accuracy)
 
 st.subheader("Conclusions")
-st.write("When selecting our questions, we tried to pick questions that would have correlation with experience. The most influencial question in the predictor was \"How many languagues do you know?\". We expected some correlation between all correlations, but we found that NONE of the questions had visible correlation. This shows that hackathons are events in which people of all experiences and ages participate in. Our biggest takeaway is that more people should participate, regardless of skill or age.") 
+st.write("When selecting our questions, we tried to pick questions that would have correlation with experience. The most influencial question in the predictor was \"How many languagues do you know?\" We expected some correlation between all questions, but we found that NONE of the questions had significant visible correlation. This shows that hackathons are events in which people of all experiences and ages participate in. Our biggest takeaway is that more people should participate, regardless of skill or age.") 
 
 

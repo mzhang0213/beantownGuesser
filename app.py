@@ -13,7 +13,7 @@ class_names = ["first hackathon", "not first hackathon"]
 st.set_option('deprecation.showPyplotGlobalUse', False)
 @st.cache(persist= True)
 def load():
-    data= pd.read_csv("mushrooms.csv")
+    data= pd.read_csv("data.csv")
     data = data.drop("Names", axis = 1)
     label= LabelEncoder()
     for i in data.columns:
@@ -42,7 +42,6 @@ def knn_comparison(data, k):
     return accuracy
     
 # Load data
-data = pd.read_csv("data.csv")
 
 # Create sidebar
 st.sidebar.title("KNN Comparison")

@@ -34,7 +34,7 @@ data = pd.read_csv("data.csv")
 
 # Create sidebar
 st.sidebar.title("KNN Comparison")
-k = st.sidebar.slider("Choose value of K", 1, 50)
+k = st.sidebar.slider("Choose value of K", 1, 48)
 
 # Calculate accuracy
 accuracy = knn_comparison(data, k)

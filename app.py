@@ -18,6 +18,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 class_names = ["first hackathon", "not first hackathon"]
+st.title("Predicting Hackathon Experience")
 st.set_option('deprecation.showPyplotGlobalUse', False)
 @st.cache(persist= True)
 def load():
@@ -32,7 +33,7 @@ models = {'Random Forest': RandomForestClassifier(),
       'SVM': svm.SVC(),
       'Naive Bayes': GaussianNB(),
       'Decision Tree': tree.DecisionTreeClassifier(),
-      'KNN': KNeighborsClassifier(n_neighbors=4)}
+      'KNN': KNeighborsClassifier(n_neighbors=1)}
 
 # Streamlit App
 st.write("Select the model to use")

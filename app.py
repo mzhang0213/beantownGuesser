@@ -6,7 +6,6 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from mlxtend.plotting import plot_decision_regions
-import scikitplot as skplt
 
 def knn_comparison(data, k):
     y = data["Hackathon"]

@@ -44,7 +44,7 @@ X = data[["Age", "Exp", "Langs", "Beans", "Glasses", "Git", "Lang", "Start"]]
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, train_size=0.8, random_state=1
 )
-clf = KNeighborsClassifier(n_neighbors=k)
+clf = KNeighborsClassifier(n_neighbors=1)
 pipe = make_pipeline(StandardScaler(), models[selected_model])
 pipe.fit(X_train, y_train)
 y_pred = pipe.predict(X_test)

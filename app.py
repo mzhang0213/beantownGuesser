@@ -29,3 +29,5 @@ k = st.sidebar.slider("Choose value of K", 1, 50)
 
 # Calculate accuracy
 accuracy = knn_comparison(data, k)
+
+st.write(accuracy)

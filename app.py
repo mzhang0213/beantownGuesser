@@ -36,7 +36,8 @@ models = {'Random Forest': RandomForestClassifier(),
 
 # Streamlit App
 st.write("Select the model to use")
-selected_model = st.selectbox("Select model to use", list(models.keys()))
+selected_model = st.sidebar.selectbox("Select model to use", list(models.keys()))
+data= pd.read_csv("data.csv")
 
 y = data["Hackathon"]
 X = data[["Age", "Exp", "Langs", "Beans", "Glasses", "Git", "Lang", "Start"]]
@@ -74,7 +75,6 @@ def knn_comparison(data, k):
     return accuracy
     
 # Load data
-data= pd.read_csv("data.csv")
 
 # Create sidebar
 st.sidebar.title("KNN Comparison")

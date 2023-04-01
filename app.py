@@ -19,7 +19,9 @@ def knn_comparison(data, k):
     y_pred = pipe.predict(X_test)
     accuracy = accuracy_score(y_test, y_pred)
     return accuracy
-
+    if st.sidebar.button("Classify", key="classify"):
+        st.write("Accuracy: ", accuracy)
+        plot_metrics(metrics)
 # Load data
 data = pd.read_csv("data.csv")
 
@@ -47,3 +49,5 @@ def plot_metrics(metrics_list):
         plot_precision_recall_curve(model, x_test, y_test)
         st.pyplot()
 metrics = st.sidebar.multiselect("What metrics to plot?", ("Confusion Matrix", "ROC Curve", "Precision-Recall Curve"))
+class_names = ["first hackathon", "not first hackathon"]
+

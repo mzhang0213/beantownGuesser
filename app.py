@@ -25,7 +25,6 @@ def knn_comparison(data, k):
     cm = confusion_matrix(y_test, y_pred)
     disp = ConfusionMatrixDisplay(confusion_matrix=cm)
     disp.plot()
-    fig, ax = plt.subplots()
     plt.show()
     st.pyplot(fig)
     return accuracy

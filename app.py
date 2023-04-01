@@ -19,9 +19,7 @@ def knn_comparison(data, k):
     y_pred = pipe.predict(X_test)
     accuracy = accuracy_score(y_test, y_pred)
     return accuracy
-    if st.sidebar.button("Classify", key="classify"):
-        st.write("Accuracy: ", accuracy)
-        plot_metrics(metrics)
+    
 # Load data
 data = pd.read_csv("data.csv")
 
@@ -33,7 +31,7 @@ k = st.sidebar.slider("Choose value of K", 1, 50)
 accuracy = knn_comparison(data, k)
 
 st.write(accuracy)
-
+plot_metrics(metrics)
 
 def plot_metrics(metrics_list):
     if "Confusion Matrix" in metrics_list:

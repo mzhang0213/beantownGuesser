@@ -22,6 +22,33 @@ df = load()
 if st.sidebar.checkbox("Display data", False):
     st.subheader("Show dataset")
     st.write(df)
+models = {'Random Forest': RandomForestClassifier(),
+      'SVM': svm.SVC(),
+      'Naive Bayes': GaussianNB(),
+      'Decision Tree': tree.DecisionTreeClassifier(),
+      'KNN': KNeighborsClassifier(n_neighbors=4)}
+
+# Streamlit App
+st.write("Select the model to use")
+selected_model = st.selectbox("Select model to use", list(models.keys()))
+
+y = data["Hackathon"]
+X = data[["Age", "Exp", "Langs", "Beans", "Glasses", "Git", "Lang", "Start"]]
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, train_size=0.8, random_state=1
+)
+clf = KNeighborsClassifier(n_neighbors=k)
+pipe = make_pipeline(StandardScaler(), models[selected_model])
+pipe.fit(X_train, y_train)
+y_pred = pipe.predict(X_test)
+accuracy = accuracy_score(y_test, y_pred)
+cm = confusion_matrix(y_test, y_pred)
+disp = ConfusionMatrixDisplay(confusion_matrix=cm)
+disp.plot()
+plt.show()
+st.pyplot()
+st.write(accuracy)
+# User selection of model
 def knn_comparison(data, k):
     y = data["Hackathon"]
     X = data[["Age", "Exp", "Langs", "Beans", "Glasses", "Git", "Lang", "Start"]]

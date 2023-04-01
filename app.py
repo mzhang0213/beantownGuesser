@@ -10,7 +10,7 @@ from mlxtend.plotting import plot_decision_regions
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 class_names = ["first hackathon", "not first hackathon"]
-
+st.set_option('deprecation.showPyplotGlobalUse', False)
 def knn_comparison(data, k):
     y = data["Hackathon"]
     X = data[["Age", "Exp", "Langs", "Beans", "Glasses", "Git", "Lang", "Start"]]
